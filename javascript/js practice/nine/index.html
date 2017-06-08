@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>九宫格练习</title>
+    <style>
+        #top{
+
+        }
+        #bottom ul{
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        #bottom ul li{
+            width: 100px;
+            height: 100px;
+            list-style: none;
+            float: left;
+        }
+        #bottom ul li img{
+            width: 100px;
+            height: 100px;
+            background-size:100%;
+        }
+    </style>
+</head>
+<body>
+<div id="top">
+    <button>每列三行</button>
+    <button>每列四行</button>
+</div>
+<div id="bottom">
+    <ul id="oul">
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+        <li><img src="img/run.jpg" alt=""></li>
+    </ul>
+</div>
+<script>
+    window.onload = function () {
+        var btns = document.getElementById('top').getElementsByTagName('button');
+        var lis = document.getElementById('oul').getElementsByTagName('li');
+//        btns[0].onclick = function () {
+//        for( var i= 0,len = lis.length;i < len;i ++){
+//                var col = parseInt(i % 3);
+//                var row = parseInt(i / 3);
+//                var myLeft =  col *(100 + 10);
+//                var myTop =  row *(100 + 10);
+//                console.log(lis[i]);
+//                lis[i].style.position = 'absolute';
+//                lis[i].style.left = myLeft +'px';
+//                lis[i].style.top = myTop+'px';
+//                }
+//            };
+
+//        btns[1].onclick = function () {
+//        for( var i= 0,len = lis.length;i < len;i ++){
+//            var col = parseInt(i % 4);
+//            var row = parseInt(i / 4);
+//            var myLeft =  col *(100 + 10);
+//            var myTop =  row *(100 + 10);
+//            console.log(lis[i]);
+//            lis[i].style.position = 'absolute';
+//            lis[i].style.left = myLeft +'px';
+//            lis[i].style.top = myTop+'px';
+//        }
+//    };
+        function changeLayout(num) {
+            for( var i= 0,len = lis.length;i < len;i ++){
+            var col = parseInt(i % num);
+            var row = parseInt(i / num);
+            var myLeft =  col *(100 + 10);
+            var myTop =  row *(100 + 10);
+            console.log(lis[i]);
+            lis[i].style.position = 'absolute';
+            lis[i].style.left = myLeft +'px';
+            lis[i].style.top = myTop+'px';
+             }
+         }
+         btns[0].onclick = function () {
+             changeLayout(3)
+         };
+        btns[1].onclick = function () {
+            changeLayout(4)
+        }
+    }
+
+
+</script>
+</body>
+</html>
