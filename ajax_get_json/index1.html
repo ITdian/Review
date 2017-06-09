@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无限级联|</title>
+</head>
+<body>
+<select id="game">
+    <option>选择游戏</option>
+</select>
+<select id="province">
+    <option>选择省份</option>
+</select>
+<select id="area">
+    <option>选择大区</option>
+</select>
+<script src="js/jquery-3.1.1.js"> </script>
+<script>
+    $(function () {
+        var game = $('#game');
+        var province = $('#province');
+        var area = $('#area');
+        var url = './data/game.json';
+        $.ajax({
+            type:'GET',
+            url:url,
+            success:function (res) {
+                //获取数据后,根据数据的长度添加对应多少的option
+                $.each(res,function (index,obj) {
+                    var tag = $('<option value="'+obj.id+'">'+obj.name+'</option>');
+                    game.append(tag);
+                })
+            }
+        });
+        game.on('change',function () {
+            var id = $(this).val();
+            var url = './data/'+id+'.json';
+            $.ajax({
+                type:'GET',
+                url:url,
+                success:function (res) {
+                    //获取返回的数据,根据返回数据的长度添加相对应的option
+                    $.each(res,function (index,obj) {
+                        var tag = $('<option value="'+obj.id+'">'+obj.name+'</option>')
+                        province.append(tag)
+                    })
+                }
+            })
+        });
+        province.on('click',function () {
+            var id = $(this).val();
+            var url  = './data/'+id+'.json';
+            $.ajax({
+                type:'GET',
+                url:url,
+                success:function (res) {
+                    //获取返回的数据,然后遍历数据
+                    // 据数据的长度添加对应的option
+                    $.each(res,function (index,obj) {
+                        var tag = $('<option value="'+obj.id+'">'+obj.name+'</option>');
+                        area.append(tag)
+                    })
+
+                }
+            })
+        })
+
+    })
+</script>
+</body>
+</html>

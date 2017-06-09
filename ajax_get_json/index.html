@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无限级联</title>
+</head>
+<body>
+<select class="game">
+    <option>选择游戏</option>
+</select>
+<select class="province">
+    <option>选择省份</option>
+</select>
+<select class="area">
+    <option>选择大区</option>
+</select>
+<script src="js/jquery-3.1.1.js"></script>
+<script>
+    $(function () {
+        var game = $('.game');
+        var province = $('.province');
+        var area = $('.area');
+        var url = './data/game.json';
+        $.ajax({
+            //类型
+            type:'GET',
+            //链接地址
+            url:url,
+            //
+            success:function (res) {
+                $.each(res,function (index,obj) {
+                    //每次遍历绑定一次创建一个option节点,绑定obj.id
+                    var tag = $('<option value="'+obj.id+'">'+obj.name+'</option>');
+                    //添加节点
+                    game.append(tag)
+                })
+            }
+        });
+        //当游戏发生改变的时候
+        game.on('change',function () {
+            var id = $(this).val();
+            var url = './data/'+id+'.json';
+            //发送请求
+            $.ajax({
+                type:'GET',
+                url:url,
+                success:function (res) {
+                    /*拿到返回数据,遍历数据设置对应的值
+                    * 返回的数组的长度有多少个,就需要添加多少option
+                    * */
+                    $.each(res,function (index,obj) {
+                        /*每次遍历都需要创建一个option节点*/
+                        var tag = $('<option value="'+obj.id+'">'+obj.name+'</option>');
+                        province.append(tag);
+                    })
+                }
+            })
+        });
+        province.on('change',function () {
+            var id = $(this).val();
+            console.log(id);
+            var url = './data/'+id+'.json';
+            console.log(url);
+            //发送请求
+            $.ajax({
+                type:'GET',
+                url:url,
+                success:function (res) {
+                    /*拿到返回数据,遍历数据设置对应的值
+                     * 返回的数组的长度有多少个,就需要添加多少option
+                     * */
+                    $.each(res,function (index,obj) {
+                        /*每次遍历都需要创建一个option节点*/
+                        var tag = $('<option value="'+obj.id+'">'+obj.name+'</option>');
+                        area.append(tag);
+                    })
+                }
+            })
+        });
+/*        province.on('change',function () {
+            var id = $(this).val();
+            var url = './data/'+id+'.json';
+            //发送请求
+            $.ajax({
+                type:'GET',
+                url:url,
+                success:function (res) {
+                    //拿到返回数据,遍历数据设置对应的值,
+                    // 返回数据的长度有多少个,就需要添加多少个option
+                    $.each(res,function (index,obj) {
+                        var tag = $('<option value="'+obj.id+'">'+obj.name+'</option>');
+                        //添加节点
+                        area.append(tag)
+                    })
+                }
+            })
+        })*/
+    })
+</script>
+</body>
+</html>
