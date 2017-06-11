@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax-get</title>
+    <script>
+        window.onload = function () {
+            var oBtn = document.getElementById('btn');
+            oBtn.onclick = function () {
+                /*
+                * 需求:
+                * 点击按钮就发送get请求
+                * 要求:
+                * 不能刷新页面
+                 */
+                //创建异步对象
+//                var xhr = new XMLHttpRequest();
+                if(window.XMLHttpRequest){
+                    var xhr = new XMLHttpRequest()
+                }else
+                {//IE6  IE5
+                    var xhr = new ActiveXObject("Microsoft.XMLHTTP");
+
+                }
+                //2.设置url
+                /*
+                * 第一个参数:请求方式
+                * 第二个参数:url地址
+                * 第三个参数:是否异步请求,永远写true  true为异步请求  false为同步
+                **/
+
+                //发送请求
+                xhr.open("get","03-ajax-get.php",true);
+                //监听请求状态
+                xhr.send();
+                /*onreadystatechange:
+                 0: 请求未初始化
+                1: 服务器连接已建立
+                2: 请求已接收
+                3: 请求处理中
+                4: 请求已完成，且响应已就绪
+                */
+
+                xhr.onreadystatechange = function () {
+                    //判断statechange
+                    if(xhr.readyState == 4){
+                        //判断请求是否成功
+                        //通过状态码来判断,200~299之间都是成功 304 也是成功(缓存)
+                        if(xhr.status >= 200 &&
+                            xhr.status <300 ||
+                            xhr.status == 304){
+                            //处理请求结果
+//                            console.log("成功");
+                            console.log(xhr.responseText)
+                        }else{
+                            console.log("失败")
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<button id="btn">点击</button>
+</body>
+</html>
